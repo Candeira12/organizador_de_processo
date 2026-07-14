@@ -1,0 +1,93 @@
+/**
+ * Tema e Variáveis de Cor
+ */
+
+:root {
+    /* Cores Primárias */
+    --primary: #667eea;
+    --primary-dark: #5568d3;
+    --primary-light: #f0f1ff;
+    
+    /* Cores Secundárias */
+    --secondary: #764ba2;
+    --secondary-light: #e8e9ff;
+    
+    /* Cores de Estado */
+    --success: #66bb6a;
+    --success-light: #c8e6c9;
+    --success-dark: #558b2f;
+    --success-border: #81c784;
+    --success-text: #2e7d32;
+    
+    --error: #ef5350;
+    --error-light: #ffcdd2;
+    --error-dark: #e53935;
+    --error-border: #ef5350;
+    --error-text: #c62828;
+    
+    --warning: #ffa726;
+    --warning-light: #ffe0b2;
+    --warning-dark: #fb8c00;
+    --warning-border: #ffb74d;
+    --warning-text: #e65100;
+    
+    --info: #64b5f6;
+    --info-light: #bbdefb;
+    --info-dark: #1976d2;
+    --info-border: #64b5f6;
+    --info-text: #1565c0;
+    
+    /* Cores Neutras */
+    --text: #333;
+    --text-light: #666;
+    --text-lighter: #999;
+    --bg: #ffffff;
+    --bg-light: #f8f9fa;
+    --border: #e0e0e0;
+    --border-light: #eee;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 5px 15px rgba(102, 126, 234, 0.4);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
+    
+    /* Tipografia */
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-sm: 0.85em;
+    --font-size-base: 1em;
+    --font-size-lg: 1.05em;
+    --font-size-xl: 1.5em;
+    --font-size-2xl: 2em;
+    
+    /* Espaçamento */
+    --spacing-xs: 5px;
+    --spacing-sm: 8px;
+    --spacing-md: 10px;
+    --spacing-lg: 15px;
+    --spacing-xl: 20px;
+    --spacing-2xl: 40px;
+    
+    /* Border Radius */
+    --radius-sm: 3px;
+    --radius-md: 4px;
+    --radius-lg: 5px;
+    --radius-xl: 10px;
+    
+    /* Transições */
+    --transition-fast: 0.1s;
+    --transition-base: 0.3s;
+    --transition-slow: 0.5s;
+}
+
+/* Tema Escuro (futuro) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #f0f0f0;
+        --text-light: #b0b0b0;
+        --text-lighter: #707070;
+        --bg: #1e1e1e;
+        --bg-light: #2a2a2a;
+        --border: #404040;
+        --border-light: #303030;
+    }
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizador de Processo</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📋 Organizador de Processo</h1>
+            <p>Processe seus documentos de forma eficiente</p>
+        </div>
+
+        <!-- Abas -->
+        <div class="tabs">
+            <button class="tab-button active" data-tab="processos">Processos</button>
+            <button class="tab-button" data-tab="upload">Upload de Arquivos</button>
+        </div>
+
+        <!-- ABA 1: PROCESSOS -->
+        <div id="processos" class="tab-content active">
+            <div class="message" id="msg-processos"></div>
+
+            <div class="form-group">
+                <label for="input-processos">Adicionar Número de Processo ou Caminho Completo:</label>
+                <div class="input-item">
+                    <input type="text" id="input-processos" placeholder="Ex: 1234567-89.0123.4.56.7890 ou /caminho/completo/do/processo">
+                    <button class="btn-secondary" onclick="adicionarProcesso()">Adicionar</button>
+                </div>
+                <small>
+                    • Digite um número de processo (será expandido automaticamente)<br>
+                    • Ou forneça o caminho completo começando com /
+                </small>
+            </div>
+
+            <div class="items-list" id="lista-processos">
+                <p style="color: var(--text-lighter); text-align: center;">Nenhum processo adicionado</p>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-secondary" onclick="limparProcessos()">Limpar Lista</button>
+                <button class="btn-primary" onclick="processarTodos()">▶ Processar Tudo</button>
+            </div>
+
+            <div class="progress-bar" id="progress-bar" style="display: none;">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+
+            <div class="loading" id="loading-processos">
+                <div class="spinner"></div>
+                <p>Processando... Isso pode levar alguns minutos</p>
+            </div>
+
+            <div class="results" id="results-processos"></div>
+        </div>
+
+        <!-- ABA 2: UPLOAD -->
+        <div id="upload" class="tab-content">
+            <div class="message" id="msg-upload"></div>
+
+            <!-- Modo de Upload -->
+            <div class="form-group">
+                <label>Modo de Upload:</label>
+                <div class="upload-mode-selector">
+                    <button class="mode-btn active" id="mode-single" onclick="alterarModoUpload('single')">
+                        📁 Upload Único
+                    </button>
+                    <button class="mode-btn" id="mode-batch" onclick="alterarModoUpload('batch')">
+                        📂 Upload em Lote
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modo Único -->
+            <div id="upload-single" class="upload-mode-content active">
+                <div class="form-group">
+                    <label>Selecione um Arquivo:</label>
+                    <div class="file-input-wrapper">
+                        <label for="arquivo" class="file-input-label" id="file-label">
+                            <div>📁 Clique para selecionar ou arraste um arquivo aqui</div>
+                            <small style="color: var(--text-light); display: block; margin-top: var(--spacing-md);">
+                                Formatos permitidos: PDF, DOC, DOCX, TXT, ZIP, RAR (máx. 100MB)
+                            </small>
+                        </label>
+                        <input type="file" id="arquivo" accept=".pdf,.doc,.docx,.txt,.zip,.rar">
+                    </div>
+                    <div class="file-name" id="file-name"></div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="limparUpload()">Limpar</button>
+                    <button class="btn-primary" onclick="fazerUpload()">📤 Fazer Upload</button>
+                </div>
+            </div>
+
+            <!-- Modo Lote -->
+            <div id="upload-batch" class="upload-mode-content">
+                <div class="form-group">
+                    <label>Selecione Múltiplos Arquivos:</label>
+                    <div class="file-input-wrapper">
+                        <label for="arquivo-lote" class="file-input-label" id="file-label-batch">
+                            <div>📁 Clique para selecionar ou arraste os arquivos aqui</div>
+                            <small style="color: var(--text-light); display: block; margin-top: var(--spacing-md);">
+                                Formatos permitidos: PDF, DOC, DOCX, TXT, ZIP, RAR (máx. 100MB cada)<br>
+                                Os números dos processos serão extraídos automaticamente dos nomes dos arquivos
+                            </small>
+                        </label>
+                        <input type="file" id="arquivo-lote" accept=".pdf,.doc,.docx,.txt,.zip,.rar" multiple>
+                    </div>
+                    <div class="file-list" id="file-list-batch"></div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="limparUploadLote()">Limpar</button>
+                    <button class="btn-primary" onclick="fazerUploadLote()">📤 Processar Tudo</button>
+                </div>
+            </div>
+
+            <div class="loading" id="loading-upload">
+                <div class="spinner"></div>
+                <p>Processando arquivo(s)...</p>
+            </div>
+
+            <div class="progress-bar" id="progress-bar-upload" style="display: none;">
+                <div class="progress-fill" id="progress-fill-upload"></div>
+                <span class="progress-text" id="progress-text-upload">0%</span>
+            </div>
+
+            <div class="results" id="results-upload"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tabs.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/processos.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

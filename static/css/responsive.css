@@ -1,0 +1,129 @@
+/**
+ * Responsive Design
+ */
+
+/* Tablets */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-xl);
+    }
+
+    .header h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    .header p {
+        font-size: var(--font-size-sm);
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .button-group button {
+        flex: auto;
+    }
+
+    .input-item {
+        flex-direction: column;
+    }
+
+    .input-item input {
+        width: 100%;
+    }
+
+    .input-item button {
+        width: 100%;
+    }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+    body {
+        padding: var(--spacing-md);
+    }
+
+    .container {
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-lg);
+    }
+
+    .header {
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .header h1 {
+        font-size: calc(var(--font-size-2xl) * 0.75);
+    }
+
+    .tabs {
+        gap: var(--spacing-xs);
+    }
+
+    .tab-button {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: var(--font-size-sm);
+    }
+
+    .form-group {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .file-input-label {
+        padding: var(--spacing-xl);
+    }
+
+    .file-input-label small {
+        font-size: var(--font-size-sm);
+    }
+
+    .items-list {
+        padding: var(--spacing-md);
+        max-height: 250px;
+    }
+
+    .item {
+        padding: var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .item-remove {
+        padding: var(--spacing-xs) var(--spacing-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .result-item {
+        padding: var(--spacing-lg);
+    }
+
+    .result-title {
+        font-size: var(--font-size-base);
+    }
+
+    .result-content {
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Impressão */
+@media print {
+    body {
+        background: white;
+    }
+
+    .container {
+        box-shadow: none;
+        max-width: 100%;
+    }
+
+    button,
+    .tabs,
+    .loading,
+    .progress-bar {
+        display: none !important;
+    }
+}
